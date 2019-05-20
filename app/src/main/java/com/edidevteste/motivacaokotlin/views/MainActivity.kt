@@ -1,7 +1,8 @@
-package com.edidevteste.motivacaokotlin
+package com.edidevteste.motivacaokotlin.views
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import com.edidevteste.motivacaokotlin.R
 
 class MainActivity : AppCompatActivity() {
 
