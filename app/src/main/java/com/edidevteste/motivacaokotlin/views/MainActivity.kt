@@ -5,22 +5,24 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import com.edidevteste.motivacaokotlin.R
+import com.edidevteste.motivacaokotlin.mock.MotivacaoMock
 import com.edidevteste.motivacaokotlin.util.MotivacaoConstants
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private var mFilter: Int = 0
+    private val mMock = MotivacaoMock()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        setListeners()
 
         mFilter = MotivacaoConstants.PHRASE_FILTER.ALL
         refreshImagens()
         imageAll.setImageResource(R.drawable.ic_all_selected)
-
-        setListeners()
+        refreshPrase()
     }
 
     private fun setListeners(){
@@ -35,7 +37,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         val listImage = listOf(R.id.imageAll, R.id.imageHappy, R.id.imageSun)
         if(id in listImage){
             handleFilter(id)
-        }else{
+        }else if(id == R.id.buttonNewPhrase){
             refreshPrase()
         }
     }
@@ -64,6 +66,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun refreshPrase(){
-        Toast.makeText(applicationContext, "Gerar código para geração automatica", Toast.LENGTH_LONG).show()
+        //Toast.makeText(applicationContext, "Gerar código para geração automatica", Toast.LENGTH_LONG).show()
+        textPhrase.text = mMock.getPhrase(mFilter)
     }
 }
