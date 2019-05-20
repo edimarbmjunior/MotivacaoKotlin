@@ -23,6 +23,7 @@ class SplashActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(R.layout.activity_splash)
         mSecurity = SecurityPreferences(this)
         buttonSalvar.setOnClickListener(this)
+        verifyUserName()
     }
 
     override fun onClick(view: View) {
@@ -40,13 +41,26 @@ class SplashActivity : AppCompatActivity(), View.OnClickListener {
             mSecurity.storeString(MotivacaoConstants.KEY.PERSON_NAME, name)
 
             //Criação da variavel com os dados da aplicação e qual a intenção de abertura
-            val intent = Intent(this, MainActivity::class.java)
+            //val intent = Intent(this, MainActivity::class.java)
             //Chamada de activity usando variavel com a intenção(intent)
-            startActivity(intent)
+            startNewActivity(Intent(this, MainActivity::class.java))
 
             //A função abaixo retira da pilha de activity abertas e funcionais a "splashActivity", impede que volte para ela
             // Porém caso o aplicativo seja retirado da memória do aparelho, o app voltará a ter a activity "splashActivity"
             //finish()
+        }
+    }
+
+    private fun startNewActivity(intent: Intent){
+        startActivity(intent)
+    }
+
+    private fun verifyUserName(){
+        val userName = mSecurity.getStoredString(MotivacaoConstants.KEY.PERSON_NAME)
+        if(userName.isNullOrBlank()){
+            editName.setText(userName)
+        }else{
+            startNewActivity(Intent(this, MainActivity::class.java))
         }
     }
 }

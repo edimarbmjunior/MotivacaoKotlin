@@ -7,22 +7,30 @@ import android.widget.Toast
 import com.edidevteste.motivacaokotlin.R
 import com.edidevteste.motivacaokotlin.mock.MotivacaoMock
 import com.edidevteste.motivacaokotlin.util.MotivacaoConstants
+import com.edidevteste.motivacaokotlin.util.SecurityPreferences
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private var mFilter: Int = 0
+    //Lateinit é para variaveis que precisão de inicialização, porém só terá a informação para inicializar
+    // ela após a execução do aplicativo, sendo assim devemos colocar o lateinit e dentro do "onCreate()" inicializar ela.
+    private lateinit var mSecurityPreferences: SecurityPreferences
     private val mMock = MotivacaoMock()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        mSecurityPreferences = SecurityPreferences(applicationContext)
+
         setListeners()
 
         mFilter = MotivacaoConstants.PHRASE_FILTER.ALL
         refreshImagens()
         imageAll.setImageResource(R.drawable.ic_all_selected)
         refreshPrase()
+        verifyUserName()
     }
 
     private fun setListeners(){
@@ -68,5 +76,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private fun refreshPrase(){
         //Toast.makeText(applicationContext, "Gerar código para geração automatica", Toast.LENGTH_LONG).show()
         textPhrase.text = mMock.getPhrase(mFilter)
+    }
+
+    private fun verifyUserName(){
+        textUserName.text = mSecurityPreferences.getStoredString(MotivacaoConstants.KEY.PERSON_NAME)
     }
 }
