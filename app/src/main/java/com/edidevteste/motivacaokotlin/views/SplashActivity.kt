@@ -40,6 +40,7 @@ class SplashActivity : AppCompatActivity(), View.OnClickListener {
         }else{
             mSecurity.storeString(MotivacaoConstants.KEY.PERSON_NAME, name)
 
+
             //Criação da variavel com os dados da aplicação e qual a intenção de abertura
             //val intent = Intent(this, MainActivity::class.java)
             //Chamada de activity usando variavel com a intenção(intent)
@@ -57,9 +58,8 @@ class SplashActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun verifyUserName(){
         val userName = mSecurity.getStoredString(MotivacaoConstants.KEY.PERSON_NAME)
-        if(userName.isNullOrBlank()){
+        if(!userName.isNullOrBlank()){
             editName.setText(userName)
-        }else{
             startNewActivity(Intent(this, MainActivity::class.java))
         }
     }
