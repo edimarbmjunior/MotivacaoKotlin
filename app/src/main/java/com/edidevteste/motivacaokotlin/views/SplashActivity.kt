@@ -40,7 +40,6 @@ class SplashActivity : AppCompatActivity(), View.OnClickListener {
         }else{
             mSecurity.storeString(MotivacaoConstants.KEY.PERSON_NAME, name)
 
-
             //Criação da variavel com os dados da aplicação e qual a intenção de abertura
             //val intent = Intent(this, MainActivity::class.java)
             //Chamada de activity usando variavel com a intenção(intent)
