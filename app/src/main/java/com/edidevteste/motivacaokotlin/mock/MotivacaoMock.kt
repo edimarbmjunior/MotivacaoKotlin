@@ -9,7 +9,7 @@ class Phrase(val description: String, val category: Int)
     return Random().nextInt(this)
 }*/
 
-fun Int.random() : Int = Random().nextInt(this)
+fun Int.random(): Int = Random().nextInt(this)
 
 class MotivacaoMock {
 
@@ -34,9 +34,8 @@ class MotivacaoMock {
         Phrase("Riscos devem ser corridos, porque o maior perigo é não arriscar nada!", SUN)
     )
 
-    fun getPhrase(value: Int): String{
+    fun getPhrase(value: Int): String {
         val filtered = mListPhrases.filter { it -> (it.category == value || value == ALL) }
-
         val random = (filtered.size).random()
 
         return filtered[random].description

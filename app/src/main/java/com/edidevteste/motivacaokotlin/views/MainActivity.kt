@@ -1,18 +1,16 @@
 package com.edidevteste.motivacaokotlin.views
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Parcel
-import android.os.Parcelable
+import android.support.v7.app.AppCompatActivity
 import android.view.View
-import android.widget.Toast
 import com.edidevteste.motivacaokotlin.R
 import com.edidevteste.motivacaokotlin.mock.MotivacaoMock
 import com.edidevteste.motivacaokotlin.util.MotivacaoConstants
 import com.edidevteste.motivacaokotlin.util.SecurityPreferences
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity() : AppCompatActivity(), View.OnClickListener, Parcelable {
+class MainActivity() : AppCompatActivity(), View.OnClickListener {
 
     private var mFilter: Int = 0
     //Lateinit é para variaveis que precisão de inicialização, porém só terá a informação para inicializar
@@ -39,7 +37,7 @@ class MainActivity() : AppCompatActivity(), View.OnClickListener, Parcelable {
         verifyUserName()
     }
 
-    private fun setListeners(){
+    private fun setListeners() {
         imageAll.setOnClickListener(this)
         imageSun.setOnClickListener(this)
         imageHappy.setOnClickListener(this)
@@ -49,60 +47,42 @@ class MainActivity() : AppCompatActivity(), View.OnClickListener, Parcelable {
     override fun onClick(view: View) {
         val id = view.id
         val listImage = listOf(R.id.imageAll, R.id.imageHappy, R.id.imageSun)
-        if(id in listImage){
+        if (id in listImage) {
             handleFilter(id)
-        }else if(id == R.id.buttonNewPhrase){
+        } else if (id == R.id.buttonNewPhrase) {
             refreshPrase()
         }
     }
 
-    private fun refreshImagens(){
+    private fun refreshImagens() {
         imageAll.setImageResource(R.drawable.ic_all_unselected)
         imageSun.setImageResource(R.drawable.ic_sun_unselected)
         imageHappy.setImageResource(R.drawable.ic_happy_unselected)
     }
 
-    private fun handleFilter(id: Int){
+    private fun handleFilter(id: Int) {
         refreshImagens()
-        if(id == R.id.imageAll){
+        if (id == R.id.imageAll) {
             mFilter = MotivacaoConstants.PHRASE_FILTER.ALL
             //Acertando quais imagens devem aparecer na tela
             imageAll.setImageResource(R.drawable.ic_all_selected)
-        }else if(id == R.id.imageSun){
-                mFilter = MotivacaoConstants.PHRASE_FILTER.SUN
-                //Acertando quais imagens devem aparecer na tela
-                imageSun.setImageResource(R.drawable.ic_sun_selected)
-            }else if(id == R.id.imageHappy){
-                    mFilter = MotivacaoConstants.PHRASE_FILTER.HAPPY
-                    //Acertando quais imagens devem aparecer na tela
-                    imageHappy.setImageResource(R.drawable.ic_happy_selected)
+        } else if (id == R.id.imageSun) {
+            mFilter = MotivacaoConstants.PHRASE_FILTER.SUN
+            //Acertando quais imagens devem aparecer na tela
+            imageSun.setImageResource(R.drawable.ic_sun_selected)
+        } else if (id == R.id.imageHappy) {
+            mFilter = MotivacaoConstants.PHRASE_FILTER.HAPPY
+            //Acertando quais imagens devem aparecer na tela
+            imageHappy.setImageResource(R.drawable.ic_happy_selected)
         }
     }
 
-    private fun refreshPrase(){
+    private fun refreshPrase() {
         //Toast.makeText(applicationContext, "Gerar código para geração automatica", Toast.LENGTH_LONG).show()
         textPhrase.text = mMock.getPhrase(mFilter)
     }
 
-    private fun verifyUserName(){
-        textUserName.text = mSecurityPreferences.getStoredString(MotivacaoConstants.KEY.PERSON_NAME)
-    }
-
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeInt(mFilter)
-    }
-
-    override fun describeContents(): Int {
-        return 0
-    }
-
-    companion object CREATOR : Parcelable.Creator<MainActivity> {
-        override fun createFromParcel(parcel: Parcel): MainActivity {
-            return MainActivity(parcel)
-        }
-
-        override fun newArray(size: Int): Array<MainActivity?> {
-            return arrayOfNulls(size)
-        }
+    private fun verifyUserName() {
+        textUserName.text = "Olá, " + mSecurityPreferences.getStoredString(MotivacaoConstants.KEY.PERSON_NAME)
     }
 }

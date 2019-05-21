@@ -28,16 +28,17 @@ class SplashActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(view: View) {
         val id = view.id
-        if(id == R.id.buttonSalvar){
+        if (id == R.id.buttonSalvar) {
             handleSalve()
         }
     }
 
-    private fun handleSalve(){
+    private fun handleSalve() {
         val name: String = editName.text.toString()
-        if(name.isNullOrBlank()){
-            Toast.makeText(applicationContext /* Ou "this"*/, getString(R.string.informe_nome), Toast.LENGTH_LONG).show()
-        }else{
+        if (name.isNullOrBlank()) {
+            Toast.makeText(applicationContext /* Ou "this"*/, getString(R.string.informe_nome), Toast.LENGTH_LONG)
+                .show()
+        } else {
             mSecurity.storeString(MotivacaoConstants.KEY.PERSON_NAME, name)
 
             //Criação da variavel com os dados da aplicação e qual a intenção de abertura
@@ -51,13 +52,13 @@ class SplashActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    private fun startNewActivity(intent: Intent){
+    private fun startNewActivity(intent: Intent) {
         startActivity(intent)
     }
 
-    private fun verifyUserName(){
+    private fun verifyUserName() {
         val userName = mSecurity.getStoredString(MotivacaoConstants.KEY.PERSON_NAME)
-        if(!userName.isNullOrBlank()){
+        if (!userName.isNullOrBlank()) {
             editName.setText(userName)
             startNewActivity(Intent(this, MainActivity::class.java))
         }

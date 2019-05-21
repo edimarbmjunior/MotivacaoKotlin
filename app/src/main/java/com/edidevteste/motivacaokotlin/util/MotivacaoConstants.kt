@@ -6,7 +6,7 @@ class MotivacaoConstants private constructor() {
         val PERSON_NAME = "personName"
     }
 
-    object PHRASE_FILTER{
+    object PHRASE_FILTER {
         val ALL = 1
         val SUN = 2
         val HAPPY = 3
